@@ -4,6 +4,9 @@ A native macOS app that shows the multicast actually flowing on a network
 segment, labelled in the terms an AV operator uses: **"sACN universe 12"**, not
 `239.255.0.12`.
 
+<img width="1577" height="1476" alt="image" src="https://github.com/user-attachments/assets/88a4a48e-8ca4-4354-ad7f-2a99474e836e" />
+
+
 Built for live and install AV networks — Dante audio, sACN lighting, NDI video,
 PTP clock — where multicast misbehaviour shows up as dropouts and freezes during
 a service that nobody can reproduce afterwards. Wireshark can tell you
