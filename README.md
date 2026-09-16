@@ -8,8 +8,7 @@ segment, labelled in the terms an AV operator uses: **"sACN universe 12"**, not
 
 
 Built for live and install AV networks — Dante audio, sACN lighting, NDI video,
-PTP clock — where multicast misbehaviour shows up as dropouts and freezes during
-a service that nobody can reproduce afterwards. Wireshark can tell you
+PTP clock — where multicast misbehaviour shows up as dropouts and freezes that nobody can reproduce afterwards. Wireshark can tell you
 everything if you already know what to look for; Dante Controller only knows
 about Dante. This is one window that shows what is on the wire and says what
 looks wrong.
