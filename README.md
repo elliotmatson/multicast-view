@@ -4,7 +4,7 @@ A native macOS app that shows the multicast actually flowing on a network
 segment, labelled in the terms an AV operator uses: **"sACN universe 12"**, not
 `239.255.0.12`.
 
-Built for church and venue AV networks — Dante audio, sACN lighting, NDI video,
+Built for live and install AV networks — Dante audio, sACN lighting, NDI video,
 PTP clock — where multicast misbehaviour shows up as dropouts and freezes during
 a service that nobody can reproduce afterwards. Wireshark can tell you
 everything if you already know what to look for; Dante Controller only knows
