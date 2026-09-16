@@ -1,0 +1,13 @@
+# SwiftPM
+.build/
+.swiftpm/
+Package.resolved
+
+# The swiftc fallback builder's output
+.build-manual/
+
+# Assembled app bundle and generated icon
+dist/
+
+.DS_Store
+*.xcuserstate

@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: macos-14
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          swift --version
+          xcodebuild -version
+
+      # The pure-logic target has no syscalls, no network and no capture
+      # privileges, so the whole suite runs on a hosted runner unchanged.
+      - name: Build
+        run: swift build -v
+
+      - name: Test
+        run: swift test -v
+
+  app-bundle:
+    name: Assemble app
+    runs-on: macos-14
+    needs: build-and-test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble MulticastView.app
+        run: ./Scripts/make-app.sh
+
+      - name: Check the bundle is well formed
+        run: |
+          test -x dist/MulticastView.app/Contents/MacOS/MulticastView
+          plutil -lint dist/MulticastView.app/Contents/Info.plist
+          test -f dist/MulticastView.app/Contents/Resources/AppIcon.icns
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: MulticastView-app
+          path: dist/MulticastView.app
+          if-no-files-found: error
+
+  lint:
+    name: Sanity checks
+    runs-on: macos-14
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scripts are executable and parse
+        run: |
+          for script in Scripts/*.sh; do
+            test -x "$script" || { echo "not executable: $script"; exit 1; }
+            bash -n "$script"
+          done
+          python3 -m py_compile Scripts/emit-multicast.py Scripts/generate-test-runner.py
+
+      # The traffic generator and the fixtures should describe behaviour, not
+      # anyone's actual network.
+      - name: No private network detail in the tree
+        run: |
+          if grep -rnE '([0-9a-f]{2}:){5}[0-9a-f]{2}' Sources Tests \
+               --include='*.swift' | grep -v '00:1d:c1\|01:00:5e\|ff:ff:ff\|02:00:00\|00:1d:c1'; then
+            echo "unexpected MAC address in the tree"; exit 1
+          fi
