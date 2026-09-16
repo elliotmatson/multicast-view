@@ -63,6 +63,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Workflows are valid YAML
+        run: ./Scripts/check-workflows.sh
+
       - name: Scripts are executable and parse
         run: |
           for script in Scripts/*.sh; do
