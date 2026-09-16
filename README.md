@@ -105,6 +105,8 @@ that matters. Sessions older than 30 days are pruned; each file is capped at
 
 ## Install
 
+### Build it yourself
+
 ```bash
 git clone https://github.com/elliotmatson/multicast-view.git
 cd multicast-view
@@ -112,13 +114,30 @@ cd multicast-view
 open dist/
 ```
 
-The app is **unsigned, un-notarised and unsandboxed by design**: raw packet
-capture is impossible in a sandbox, and a privileged helper would need a paid
-Developer ID. On first run, right-click → Open, or:
+An app you build locally is never quarantined, so it just opens. **There is no
+Gatekeeper prompt and nothing to clear.** This is the least friction of the two
+routes if you already have Xcode or the Command Line Tools.
 
-```bash
-xattr -dr com.apple.quarantine dist/MulticastView.app
-```
+### Or download a release
+
+Grab the zip from [Releases](https://github.com/elliotmatson/multicast-view/releases).
+
+The app is **unsigned, un-notarised and unsandboxed by design**: raw packet
+capture is impossible in an App Sandbox, and signing for distribution needs a
+paid Apple Developer Program membership. A browser download is therefore
+quarantined, and macOS will refuse to open it.
+
+To open it anyway, either:
+
+- **macOS 15 and later** — double-click it once and let it be blocked, then go to
+  **System Settings → Privacy & Security**, scroll to the bottom, and click
+  **Open Anyway**. (Apple removed the old Control-click → Open bypass in
+  macOS 15; on macOS 13 and 14 that shortcut still works.)
+- **Any version** — clear the quarantine attribute directly:
+
+  ```bash
+  xattr -dr com.apple.quarantine /path/to/MulticastView.app
+  ```
 
 ### Capture privileges
 

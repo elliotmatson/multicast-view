@@ -7,13 +7,23 @@ segment, labelled in the terms an AV operator uses: **"sACN universe 12"**, not
 Download `MulticastView-VERSION.zip` below, unzip, and move the app where you like.
 
 The app is **unsigned and un-notarised by design** — raw packet capture is
-impossible in an App Sandbox, and a privileged helper would need a paid
-Developer ID. macOS will refuse to open it on a double-click. Either right-click
-the app and choose **Open**, or run:
+impossible in an App Sandbox, and signing for distribution needs a paid Apple
+Developer Program membership. A browser download is quarantined, so macOS will
+refuse to open it. To open it anyway, either:
 
-```bash
-xattr -dr com.apple.quarantine /path/to/MulticastView.app
-```
+- **macOS 15 and later** — double-click it once and let it be blocked, then go to
+  **System Settings → Privacy & Security**, scroll to the bottom, and click
+  **Open Anyway**. (Apple removed the old Control-click → Open bypass in
+  macOS 15; on macOS 13 and 14 that shortcut still works.)
+- **Any version** — clear the quarantine attribute directly:
+
+  ```bash
+  xattr -dr com.apple.quarantine /path/to/MulticastView.app
+  ```
+
+Or skip all of that and
+[build from source](https://github.com/elliotmatson/multicast-view#build-it-yourself):
+a locally built app is never quarantined and simply opens.
 
 ## Capture privileges
 
