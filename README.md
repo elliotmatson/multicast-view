@@ -11,6 +11,7 @@ everything if you already know what to look for; Dante Controller only knows
 about Dante. This is one window that shows what is on the wire and says what
 looks wrong.
 
+[![CI](https://github.com/elliotmatson/multicast-view/actions/workflows/ci.yml/badge.svg)](https://github.com/elliotmatson/multicast-view/actions/workflows/ci.yml)
 ![Swift 5.8+](https://img.shields.io/badge/Swift-5.8%2B-orange)
 ![macOS 13+](https://img.shields.io/badge/macOS-13%2B-blue)
 ![License MIT](https://img.shields.io/badge/License-MIT-green)
@@ -105,7 +106,7 @@ that matters. Sessions older than 30 days are pruned; each file is capped at
 ## Install
 
 ```bash
-git clone https://github.com/<owner>/multicast-view.git
+git clone https://github.com/elliotmatson/multicast-view.git
 cd multicast-view
 ./Scripts/make-app.sh
 open dist/

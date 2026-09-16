@@ -22,10 +22,10 @@ jobs:
       # The pure-logic target has no syscalls, no network and no capture
       # privileges, so the whole suite runs on a hosted runner unchanged.
       - name: Build
-        run: swift build -v
+        run: swift build
 
       - name: Test
-        run: swift test -v
+        run: swift test
 
   app-bundle:
     name: Assemble app
