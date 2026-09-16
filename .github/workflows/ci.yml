@@ -44,11 +44,16 @@ jobs:
           plutil -lint dist/MulticastView.app/Contents/Info.plist
           test -f dist/MulticastView.app/Contents/Resources/AppIcon.icns
 
+      # ditto preserves the executable bit; upload-artifact on its own does not,
+      # so the downloaded bundle would not launch.
+      - name: Package
+        run: ditto -c -k --keepParent dist/MulticastView.app MulticastView.zip
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: MulticastView-app
-          path: dist/MulticastView.app
+          path: MulticastView.zip
           if-no-files-found: error
 
   lint:
